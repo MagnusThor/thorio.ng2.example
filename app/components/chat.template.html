@@ -1,15 +1,20 @@
+<h1>
+    SimpleChat
+</h1>
+<p>
+    
+    If you change the age to be less (<10) the message will not arrive , due to the fact 
+    that the thor-io controller used will send just to clients with age greater or equal to 10.
+    
+ </p>
 <label>Message:</label>
-<input [(ngModel)]="currentChatMessage.message" (keyup.enter)="sendMessage()" >
+<input [(ngModel)]="currentChatMessage.message" (keyup.enter)="sendMessage()">
 <label>Age:</label>
 
-<input type="number" [(ngModel)]="currentChatMessage.age" (change)="setAge()">
-{{currentChatMessage.age}}
-
-
-
+<input type="number" [(ngModel)]="currentChatMessage.age" (change)="setAge()"> {{currentChatMessage.age}}
 
 <ul>
-<li *ngFor="let chatMessage of chatMessages">
-    <span>{{chatMessage.message}}</span>
-  </li>
-  </ul>
+    <li *ngFor="let chatMessage of chatMessages">
+        <span>{{chatMessage.message}}</span>
+    </li>
+</ul>

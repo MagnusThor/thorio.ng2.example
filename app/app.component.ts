@@ -19,7 +19,7 @@ import { ChatService }  from './services/chat.service';
 
 
 @RouteConfig([
-    { path: '/chat', name: 'Chat', component: ChatComponent },
+    { path: '/chat', name: 'Chat', component: ChatComponent,useAsDefault:true },
     { path: '/about', name: 'About', component: AboutComponent },
 ])
 
