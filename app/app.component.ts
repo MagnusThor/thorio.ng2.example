@@ -26,8 +26,5 @@ import { ChatService }  from './services/chat.service';
 
 export class AppComponent {
     constructor() {
-        
-       
-        //myChatService: ChatService
     }
 }
