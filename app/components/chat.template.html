@@ -1,0 +1,15 @@
+<label>Message:</label>
+<input [(ngModel)]="currentChatMessage.message" (keyup.enter)="sendMessage()" >
+<label>Age:</label>
+
+<input type="number" [(ngModel)]="currentChatMessage.age" (change)="setAge()">
+{{currentChatMessage.age}}
+
+
+
+
+<ul>
+<li *ngFor="let chatMessage of chatMessages">
+    <span>{{chatMessage.message}}</span>
+  </li>
+  </ul>
