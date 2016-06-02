@@ -7,6 +7,15 @@ body {
   margin: 2em;
 }
 
+.ball{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  background-color: red;
+  position: absolute;
+}
+
+
  /*
   * See https://github.com/angular/angular.io/blob/master/public/docs/_examples/styles.css
   * for the full set of master styles used by the documentation samples
