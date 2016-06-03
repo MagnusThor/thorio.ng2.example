@@ -6,23 +6,24 @@ import { FactoryWrapper }  from '../thorio/factorywrapper';
 @Injectable()
 
 export class ChatService {
-    private chatChannel: ThorIO.Channel;
+    private _chatChannel: ThorIO.Channel;
     public ChatMessages: Array<ChatMessage>;
     
     constructor(channels:FactoryWrapper) {
         
         this.ChatMessages = new Array<ChatMessage>();
-        this.chatChannel  = channels.getChannels("simplechat");
-        
-        this.chatChannel.on("say", (chatMessage: ChatMessage) => {
+
+        this._chatChannel  = channels.GetChannel("simplechat");
+       
+        this._chatChannel.On("say", (chatMessage: ChatMessage) => {
             this.ChatMessages.push(chatMessage);
         });
         
    };
-    public setAge(age: Number) {
-        this.chatChannel.setProperty("age", age);
+    public SetAge(age: Number) {
+        this._chatChannel.SetProperty("age", age);
     }
-    public sendMessage(message: ChatMessage) {
-        this.chatChannel.invoke("sayTo", message);
+    public SendMessage(message: ChatMessage) {
+        this._chatChannel.Invoke("sayTo", message);
     }
 }

@@ -14,10 +14,10 @@ export namespace ThorIO {
             this.ws = new WebSocket(url + this.toQuery(params));
             this.ws.onmessage = event => {
                 var message = JSON.parse(event.data);
-                this.getChannel(message.C).dispatch(message.T, message.D);
+                this.GetChannel(message.C).Dispatch(message.T, message.D);
             };
             this.ws.onopen = event => {
-                this.onopen.apply(this, [this.channels]);
+                this.OnOpen.apply(this, [this.channels]);
             };
             controllers.forEach(alias => {
                 self.channels.push(
@@ -25,17 +25,17 @@ export namespace ThorIO {
                 );
             });
         }
-        close() {
+        Close() {
             this.ws.close();
         };
-        getChannel(alias: string):ThorIO.Channel {
+        GetChannel(alias: string):ThorIO.Channel {
             var channel = this.channels.find(pre => (pre.alias === alias));
             return channel;
         };
-        removeChannel() {
+        RemoveChannel() {
             throw "Not yet implemented";
         }
-        onopen(event: any) {
+        OnOpen(event: any) {
         };
     }
     export class Message {
@@ -93,28 +93,30 @@ export namespace ThorIO {
             this.ws = ws;
             this.isConnected = false;
         }
-        connect() {
+        Connect() {
             this.ws.send(new ThorIO.Message("$connect_", {}, this.alias));
             return this;
         };
-        close() {
+        Close() {
             this.ws.send(new ThorIO.Message("$close_", {}, this.alias));
             return this;
         };
-        subscribe(t: string, fn: any) {
-            this.on(t, fn);
+        Subscribe(t: string, fn: any) {
+            this.On(t, fn);
             this.ws.send(new ThorIO.Message("subscribe", { topic: t, controller: this.alias }, this.alias));
             return this;
         };
-        unsubscribe(t: string) {
+        Unsubscribe(t: string) {
             this.ws.send(new ThorIO.Message("unsubscribe", { topic: t, controller: this.alias }, this.alias));
             return this;
         };
-        on(t: string, fn: any) {
+      
+        
+        On(t: string, fn: any) {
             this.listeners.push(new ThorIO.Listener(t, fn));
             return this;
         };
-        off(t: string) {
+        Off(t: string) {
             var index =
                 this.listeners.findIndex(function(pre: Listener) {
                     return pre.topic === t;
@@ -122,24 +124,24 @@ export namespace ThorIO {
             if (index >= 0) this.listeners.slice(index, 1);
             return this;
         };
-        invoke(t: string, d: any, c?: string) {
+        Invoke(t: string, d: any, c?: string) {
             this.ws.send(new ThorIO.Message(t, d, c || this.alias));
             return this;
         };
-        setProperty(name: string, value: any, controller?: string) {
+        SetProperty(name: string, value: any, controller?: string) {
             const property = `$set_${name}`;
-            this.invoke(property, value, controller || this.alias);
+            this.Invoke(property, value, controller || this.alias);
             return this;
         };
-        dispatch(t: string, d: any) {
+        Dispatch(t: string, d: any) {
             if (t === "$open_") {
                 d = JSON.parse(d);
                 localStorage.setItem("pid", d.PI);
                 this.isConnected = true;
-                this.onopen(d);
+                this.OnOpen(d);
                 return;
             } else if (t === "$close_") {
-                this.onclose([JSON.parse(d)]);
+                this.OnClose([JSON.parse(d)]);
                 this.isConnected = false;
             } else if (this.hasOwnProperty(t)) {
                 // this[t].apply(this, [JSON.parse(d)]);
@@ -148,10 +150,10 @@ export namespace ThorIO {
                 if (listener) listener.fn(JSON.parse(d));
             }
         };
-        onopen(message: any) {
+        OnOpen(message: any) {
         };
 
-        onclose(message: any) {
+        OnClose(message: any) {
         };
     }
 }

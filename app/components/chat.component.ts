@@ -19,11 +19,11 @@ export class ChatComponent {
     }
     sendMessage(){
         if(this.currentChatMessage.message.length === 0) return;
-        this.chatService.sendMessage(this.currentChatMessage);
+        this.chatService.SendMessage(this.currentChatMessage);
         this.currentChatMessage = new ChatMessage();
     }
     setAge(){
-        this.chatService.setAge(this.currentChatMessage.age);
+        this.chatService.SetAge(this.currentChatMessage.age);
     }
   
  }
